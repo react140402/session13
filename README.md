@@ -35,6 +35,14 @@ Share
 Storage
     AsyncStorage
         @react-native-async-storage/async-storage
+    SQlite
+        https://github.com/margelo/react-native-nitro-sqlite
+        https://github.com/OP-Engineering/op-sqlite
+            bun add @op-engineering/op-sqlite
+            bunx react-native-asset@latest
+
+    Realmjs
+        https://github.com/realm/realm-js
 
 
 ## bunx @react-native-community/cli init
