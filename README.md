@@ -34,7 +34,7 @@ Share
 
 Storage
     AsyncStorage
-        @react-native-async-storage/async-storage
+        @react-native-async-storage/async-storagekey
     SQlite
         https://github.com/margelo/react-native-nitro-sqlite
         https://github.com/OP-Engineering/op-sqlite
@@ -48,6 +48,20 @@ Storage
 Notification
     https://notifee.app/react-native/docs/integrations/fcm
     bun add @notifee/react-native @react-native-firebase/app @react-native-firebase/messaging
+
+
+Sign / Release
+    
+    https://reactnative.dev/docs/signed-apk-android
+
+    cmd/pwd -> admin
+        cd "C:\Program Files\Java\jdk-21\bin"
+
+        keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+
+    APK - cd android
+         .\gradlew.bat assembleRelease
 
 
 
