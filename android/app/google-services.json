@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "414088997852",
+    "project_id": "session13-fad-xyz",
+    "storage_bucket": "session13-fad-xyz.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414088997852:android:105cd8c9a84d72cc41fd19",
+        "android_client_info": {
+          "package_name": "com.session09"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAsH0gPTKuxW5ma788rww4dofL0qt-wfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

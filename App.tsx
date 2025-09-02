@@ -7,10 +7,25 @@ import DrugStoreTab from './src/screens/DrugStoreTab';
 import Icon from '@react-native-vector-icons/material-design-icons';
 const Tab = createBottomTabNavigator();
 import BootSplash from "react-native-bootsplash";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNetInfo } from "@react-native-community/netinfo";
 import CameraTab from './src/screens/CameraTab';
+import messaging from '@react-native-firebase/messaging';
+import notifee from '@notifee/react-native';
 
+
+// function onMessageReceived(message: any) {
+//   console.log("message", message)
+//   notifee.displayNotification(JSON.parse(message.data.notifee));
+// }
+
+// async function onMessageReceivedAsync(message: any) {
+//   console.log("message", message)
+//   notifee.displayNotification(JSON.parse(message.data.notifee));
+// }
+
+// messaging().onMessage(onMessageReceived);
+// messaging().setBackgroundMessageHandler(onMessageReceivedAsync);
 
 I18nManager.forceRTL(true);
 I18nManager.allowRTL(true);
@@ -18,8 +33,64 @@ function App() {
   const isDarkMode = useColorScheme() === 'dark';
   useEffect(() => {
     BootSplash.hide({ fade: true })
+    onAppBootstrap()
 
   }, [])
+
+  const [channelId, setChannelId] = useState("")
+
+  useEffect(() => {
+
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log("Foreground message received:", remoteMessage);
+      const data = remoteMessage.notification
+      notifee.displayNotification({
+        title: data?.title, body: data?.body, android: {
+          channelId,
+          // pressAction is needed if you want the notification to open the app when pressed
+          pressAction: {
+            id: 'default',
+          },
+        },
+      });
+    });
+
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      const data = remoteMessage.notification
+      notifee.displayNotification({
+        title: data?.title, body: data?.body, android: {
+          channelId,
+          // pressAction is needed if you want the notification to open the app when pressed
+          pressAction: {
+            id: 'default',
+          },
+        },
+      });
+    });
+
+    return unsubscribe;
+  }, [channelId]);
+
+
+  async function onAppBootstrap() {
+    // Register the device with FCM
+    await messaging().registerDeviceForRemoteMessages();
+
+    // Get the token
+    const token = await messaging().getToken();
+    console.log("token:", token)
+
+    await notifee.requestPermission()
+
+    const channelId = await notifee.createChannel({
+      id: 'default',
+      name: 'Default Channel',
+    });
+    setChannelId(channelId)
+
+    // Save the token
+    // await postToApi('/users/1234/tokens', { token });
+  }
 
   const netinfo = useNetInfo();
 

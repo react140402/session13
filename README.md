@@ -45,6 +45,12 @@ Storage
         https://github.com/realm/realm-js
 
 
+Notification
+    https://notifee.app/react-native/docs/integrations/fcm
+    bun add @notifee/react-native @react-native-firebase/app @react-native-firebase/messaging
+
+
+
 ## bunx @react-native-community/cli init
 ## bunx react-native run-android
 
